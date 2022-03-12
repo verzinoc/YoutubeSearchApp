@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Youtube Search App</string>
+
+    <string name="search_hint">Search Youtube…</string>
+    <string name="search">Search</string>
+    <string name="search_error">We were unable to execute your search.  Please check your internet connection and try again.</string>
+
+    <string name="action_share">Share</string>
+    <string name="share_text">%1$s on Youtuve: %2$s</string>
+
+    <string name="action_view_video">View video on Youtube</string>
+    <string name="action_view_video_error">There\'s no app on this device that can open a web page.  Try installing a web browser.</string>
+</resources>
