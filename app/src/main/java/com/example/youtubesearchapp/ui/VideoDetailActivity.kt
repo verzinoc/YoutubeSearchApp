@@ -23,9 +23,9 @@ class VideoDetailActivity : AppCompatActivity() {
 
         if (intent != null && intent.hasExtra(EXTRA_YOUTUBE_VIDEO)) {
             video = intent.getSerializableExtra(EXTRA_YOUTUBE_VIDEO) as YoutubeVideo
-            findViewById<TextView>(R.id.tv_video_name).text = video!!.name
-            findViewById<TextView>(R.id.tv_video_stars).text = video!!.stars.toString()
-            findViewById<TextView>(R.id.tv_video_description).text = video!!.description
+            findViewById<TextView>(R.id.tv_video_name).text = video!!.snippet.title
+            findViewById<TextView>(R.id.tv_video_stars).text = video!!.snippet.channelTitle
+            findViewById<TextView>(R.id.tv_video_description).text = video!!.snippet.description
         }
     }
 
@@ -49,25 +49,25 @@ class VideoDetailActivity : AppCompatActivity() {
     }
 
     private fun viewVideoOnWeb() {
-        if (video != null) {
-            val intent: Intent = Uri.parse(video!!.url).let {
-                Intent(Intent.ACTION_VIEW, it)
-            }
-            try {
-                startActivity(intent)
-            } catch (e: ActivityNotFoundException) {
-                Snackbar.make(
-                    findViewById(R.id.coordinator_layout),
-                    R.string.action_view_video_error,
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-        }
+//        if (video != null) {
+//            val intent: Intent = Uri.parse(video!!.url).let {
+//                Intent(Intent.ACTION_VIEW, it)
+//            }
+//            try {
+//                startActivity(intent)
+//            } catch (e: ActivityNotFoundException) {
+//                Snackbar.make(
+//                    findViewById(R.id.coordinator_layout),
+//                    R.string.action_view_video_error,
+//                    Snackbar.LENGTH_LONG
+//                ).show()
+//            }
+//        }
     }
 
     private fun shareVideo() {
         if (video != null) {
-            val text = getString(R.string.share_text, video!!.name, video!!.url)
+            val text = getString(R.string.share_text, video!!.snippet.title, video!!.snippet.channelTitle)
             val intent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, text)

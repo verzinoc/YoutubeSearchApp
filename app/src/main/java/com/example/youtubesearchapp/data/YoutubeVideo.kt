@@ -4,8 +4,17 @@ import com.squareup.moshi.Json
 import java.io.Serializable
 
 data class YoutubeVideo(
-    @Json(name = "full_name") val name: String,
+    val id: ID,
+    val snippet: Snippet
+) : Serializable
+
+data class ID(
+    val videoId: String
+) : Serializable
+
+data class Snippet(
+    val title: String,
     val description: String,
-    @Json(name = "html_url") val url: String,
-    @Json(name = "stargazers_count") val stars: Int
+    val channelTitle: String,
+    @Json(name = "publishedAt") val date: String,
 ) : Serializable

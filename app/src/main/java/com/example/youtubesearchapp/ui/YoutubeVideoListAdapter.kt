@@ -43,7 +43,7 @@ class YoutubeVideoListAdapter(private val onYoutubeVideoClick: (YoutubeVideo) ->
 
         fun bind(youtubeVideo: YoutubeVideo) {
             currentYoutubeVideo = youtubeVideo
-            nameTV.text = youtubeVideo.name
+            nameTV.text = youtubeVideo.snippet.title
         }
     }
 }

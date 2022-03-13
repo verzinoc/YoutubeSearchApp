@@ -8,14 +8,14 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface YoutubeService {
-    @GET("/search/repositories")
+    @GET("/youtube/v3/search")
     suspend fun searchVideos(
         @Query("q") query: String,
-        @Query("sort") sort: String = "stars"
+        @Query("sort") sort: String = "date"
     ) : YoutubeSearchResults
 
     companion object {
-        private const val BASE_URL = "https://api.github.com"
+        private const val BASE_URL = "https://www.googleapis.com"
         fun create() : YoutubeService {
             val moshi = Moshi.Builder()
                 .addLast(KotlinJsonAdapterFactory())

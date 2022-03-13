@@ -29,7 +29,8 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 class MainActivity : AppCompatActivity() {
-    private val apiBaseUrl = "https://api.github.com"
+    private val apiBaseUrl = "https://www.googleapis.com"
+    /*Example query: https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyA47ewwnQhMyakioY_ukldLEd_oBiaTiAQ&q=minecraft */
     private val tag = "MainActivity"
 
     private val videoListAdapter = YoutubeVideoListAdapter(::onYoutubeVideoClick)
@@ -105,8 +106,8 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    private fun doVideoSearch(q: String, sort: String = "stars") {
-        val url = "$apiBaseUrl/search/repositories?q=$q&sort=$sort"
+    private fun doVideoSearch(q: String, sort: String = "date") {
+        val url = "$apiBaseUrl/youtube/v3/search?type=video&part=snippet&key=AIzaSyA47ewwnQhMyakioY_ukldLEd_oBiaTiAQ&q=$q"
 
         val moshi = Moshi.Builder()
             .addLast(KotlinJsonAdapterFactory())
