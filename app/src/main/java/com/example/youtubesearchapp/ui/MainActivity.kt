@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         searchBtn.setOnClickListener {
             val query = searchBoxET.text.toString()
             if (!TextUtils.isEmpty(query)) {
-                doVideoSearch(query)
+                //doVideoSearch(query)
                 viewModel.loadSearchResults(query)
                 searchResultsListRV.scrollToPosition(0)
             }
@@ -105,39 +105,6 @@ class MainActivity : AppCompatActivity() {
         Log.d(tag, "onPause()")
         super.onPause()
     }
-
-    private fun doVideoSearch(q: String, sort: String = "date") {
-        val url = "$apiBaseUrl/youtube/v3/search?type=video&part=snippet&key=AIzaSyA47ewwnQhMyakioY_ukldLEd_oBiaTiAQ&q=$q"
-
-        val moshi = Moshi.Builder()
-            .addLast(KotlinJsonAdapterFactory())
-            .build()
-        val jsonAdapter: JsonAdapter<YoutubeSearchResults> =
-            moshi.adapter(YoutubeSearchResults::class.java)
-
-        val req = StringRequest(
-            Request.Method.GET,
-            url,
-            {
-                val results = jsonAdapter.fromJson(it)
-                videoListAdapter.updateVideoList(results?.items)
-                loadingIndicator.visibility = View.INVISIBLE
-                searchResultsListRV.visibility = View.VISIBLE
-            },
-            {
-                Log.d(tag, "Error fetching from $url: ${it.message}")
-                loadingIndicator.visibility = View.INVISIBLE
-                searchErrorTV.visibility = View.VISIBLE
-            }
-        )
-
-        loadingIndicator.visibility = View.VISIBLE
-        searchResultsListRV.visibility = View.INVISIBLE
-        searchErrorTV.visibility = View.INVISIBLE
-        requestQueue.add(req)
-    }
-
-
 
     private fun onYoutubeVideoClick(video: YoutubeVideo) {
         val intent = Intent(this, VideoDetailActivity::class.java).apply {

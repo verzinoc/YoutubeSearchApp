@@ -24,7 +24,7 @@ class VideoDetailActivity : AppCompatActivity() {
         if (intent != null && intent.hasExtra(EXTRA_YOUTUBE_VIDEO)) {
             video = intent.getSerializableExtra(EXTRA_YOUTUBE_VIDEO) as YoutubeVideo
             findViewById<TextView>(R.id.tv_video_name).text = video!!.snippet.title
-            findViewById<TextView>(R.id.tv_video_stars).text = video!!.snippet.channelTitle
+            findViewById<TextView>(R.id.tv_video_channel).text = video!!.snippet.channelTitle
             findViewById<TextView>(R.id.tv_video_description).text = video!!.snippet.description
         }
     }

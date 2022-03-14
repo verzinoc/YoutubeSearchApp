@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface YoutubeService {
-    @GET("/youtube/v3/search")
+    @GET("/youtube/v3/search?type=video&part=snippet&key=AIzaSyA47ewwnQhMyakioY_ukldLEd_oBiaTiAQ&q=")
     suspend fun searchVideos(
         @Query("q") query: String,
         @Query("sort") sort: String = "date"
