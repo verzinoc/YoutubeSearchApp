@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity() {
         searchBtn.setOnClickListener {
             val query = searchBoxET.text.toString()
             if (!TextUtils.isEmpty(query)) {
-                //doVideoSearch(query)
                 viewModel.loadSearchResults(query)
                 searchResultsListRV.scrollToPosition(0)
             }
