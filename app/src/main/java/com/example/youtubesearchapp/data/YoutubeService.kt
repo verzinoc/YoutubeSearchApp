@@ -11,7 +11,8 @@ interface YoutubeService {
     @GET("/youtube/v3/search?type=video&part=snippet&key=AIzaSyA47ewwnQhMyakioY_ukldLEd_oBiaTiAQ&q=")
     suspend fun searchVideos(
         @Query("q") query: String,
-        @Query("sort") sort: String = "date"
+        @Query("sort") sort: String = "date",
+        @Query("maxResults") maxResults: String = "50"
     ) : YoutubeSearchResults
 
     companion object {

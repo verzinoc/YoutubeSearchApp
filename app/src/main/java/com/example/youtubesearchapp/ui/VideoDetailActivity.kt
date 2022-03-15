@@ -75,7 +75,7 @@ class VideoDetailActivity : AppCompatActivity() {
 
     private fun shareVideo() {
         if (video != null) {
-            val text = getString(R.string.share_text, video!!.snippet.title, video!!.snippet.channelTitle)
+            val text = getString(R.string.share_text, video!!.snippet.title, video!!.snippet.channelTitle, video!!.id.videoId)
             val intent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, text)
