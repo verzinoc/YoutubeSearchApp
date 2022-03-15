@@ -1,9 +1,11 @@
 package com.example.youtubesearchapp.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.WebView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.youtubesearchapp.R
@@ -13,7 +15,9 @@ const val EXTRA_YOUTUBE_VIDEO = "com.example.android.lifecyclegithubsearch.GitHu
 
 class VideoDetailActivity : AppCompatActivity() {
     private var video: YoutubeVideo? = null
+    private val youtubeEmbedUrl = "https://www.youtube.com/embed/"
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_detail)
@@ -23,6 +27,13 @@ class VideoDetailActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.tv_video_name).text = video!!.snippet.title
             findViewById<TextView>(R.id.tv_video_channel).text = video!!.snippet.channelTitle
             findViewById<TextView>(R.id.tv_video_description).text = video!!.snippet.description
+
+            val webView: WebView = findViewById(R.id.video_player)
+            val settings = webView.settings
+            settings.javaScriptEnabled = true
+            settings.loadWithOverviewMode = true
+            settings.useWideViewPort = true
+            webView.loadUrl(youtubeEmbedUrl + video!!.id.videoId)
         }
     }
 

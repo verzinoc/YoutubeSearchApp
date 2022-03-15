@@ -72,7 +72,7 @@ class YoutubeVideoListAdapter(private val onYoutubeVideoClick: (YoutubeVideo) ->
         fun bind(youtubeVideo: YoutubeVideo) {
             currentYoutubeVideo = youtubeVideo
             nameTV.text = youtubeVideo.snippet.title
-            DownloadImageFromInternet(thumbnailIV).execute(youtubeVideo!!.snippet.thumbnails.high.url)
+            DownloadImageFromInternet(thumbnailIV).execute(youtubeVideo.snippet.thumbnails.high.url)
         }
     }
 }
