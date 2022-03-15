@@ -1,16 +1,13 @@
 package com.example.youtubesearchapp.ui
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.youtubesearchapp.data.YoutubeVideo
-import com.google.android.material.snackbar.Snackbar
 import com.example.youtubesearchapp.R
+import com.example.youtubesearchapp.data.YoutubeVideo
 
 const val EXTRA_YOUTUBE_VIDEO = "com.example.android.lifecyclegithubsearch.GitHubRepo"
 
