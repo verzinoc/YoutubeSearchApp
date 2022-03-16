@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YoutubeSearchApp">
         <activity
+            android:name=".ui.LikedVideosActivity"
+            android:parentActivityName="MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.VideoDetailActivity"
             android:parentActivityName="MainActivity"
             android:exported="false" />

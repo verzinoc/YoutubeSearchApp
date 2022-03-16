@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -19,10 +21,7 @@ import com.android.volley.toolbox.Volley
 import com.example.youtubesearchapp.data.LoadingStatus
 import com.example.youtubesearchapp.data.YoutubeSearchResults
 import com.example.youtubesearchapp.data.YoutubeVideo
-import com.example.youtubesearchapp.ui.EXTRA_YOUTUBE_VIDEO
-import com.example.youtubesearchapp.ui.VideoDetailActivity
-import com.example.youtubesearchapp.ui.YoutubeSearchViewModel
-import com.example.youtubesearchapp.ui.YoutubeVideoListAdapter
+import com.example.youtubesearchapp.ui.*
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -92,6 +91,22 @@ class MainActivity : AppCompatActivity() {
                 viewModel.loadSearchResults(query)
                 searchResultsListRV.scrollToPosition(0)
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_liked_video_list, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.action_view_liked_videos -> {
+                val intent = Intent(this, LikedVideosActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
