@@ -33,3 +33,8 @@ data class Thumbnail(
     val width: Int,
     val height: Int,
 ) : Serializable
+
+data class SingleYoutubeVideo(
+    val id: String,
+    val snippet: Snippet
+)

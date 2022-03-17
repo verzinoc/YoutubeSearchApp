@@ -18,4 +18,15 @@ class YoutubeVideoRepository(
                 Result.failure(e)
             }
         }
+
+    suspend fun fetchSingleVideoByID(id: String): Result<List<SingleYoutubeVideo>> =
+        withContext(ioDispatcher){
+            try {
+                val results = service.getVideoByID(id)
+                Result.success(results.items)
+            }
+            catch (e: Exception){
+                Result.failure(e)
+            }
+        }
 }

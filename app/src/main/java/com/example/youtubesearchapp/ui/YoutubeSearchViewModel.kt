@@ -1,5 +1,6 @@
 package com.example.youtubesearchapp.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,6 +29,13 @@ class YoutubeSearchViewModel : ViewModel() {
                 true -> LoadingStatus.SUCCESS
                 false -> LoadingStatus.ERROR
             }
+        }
+    }
+
+    fun fetchSingleVideoByID(id: String){
+        viewModelScope.launch {
+            val result = repository.fetchSingleVideoByID(id)
+            Log.d("check video", result.toString())
         }
     }
 }

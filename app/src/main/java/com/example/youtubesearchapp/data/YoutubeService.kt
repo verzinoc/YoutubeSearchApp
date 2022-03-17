@@ -15,6 +15,12 @@ interface YoutubeService {
         @Query("maxResults") maxResults: String = "50"
     ) : YoutubeSearchResults
 
+    @GET("/youtube/v3/videos?part=snippet")
+    suspend fun getVideoByID(
+        @Query("id") id: String,
+        @Query("key") key: String = "AIzaSyA47ewwnQhMyakioY_ukldLEd_oBiaTiAQ"
+    ) : SingleYoutubeVideoResults
+
     companion object {
         private const val BASE_URL = "https://www.googleapis.com"
         fun create() : YoutubeService {
