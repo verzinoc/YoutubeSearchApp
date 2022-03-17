@@ -10,6 +10,7 @@ import android.webkit.WebView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import com.example.youtubesearchapp.R
 import com.example.youtubesearchapp.data.AppDatabase
 import com.example.youtubesearchapp.data.DatabaseRepository
@@ -22,6 +23,7 @@ class VideoDetailActivity : AppCompatActivity() {
     private val youtubeEmbedUrl = "https://www.youtube.com/embed/"
 
     private lateinit var videosDB: DatabaseRepository
+    private var isLiked = false
 
     private val viewModel: DatabaseViewModel by viewModels()
 
@@ -49,6 +51,21 @@ class VideoDetailActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.activity_video_detail, menu)
+
+        val likeVideo = menu.findItem(R.id.action_like_video)
+        viewModel.getLikedVideo(video!!.id.videoId).observe(this){
+            when (it){
+                null -> {
+                    isLiked = false
+                    likeVideo.icon = AppCompatResources.getDrawable(this, R.drawable.ic_outline_thumb_up)
+                }
+                else -> {
+                    isLiked = true
+                    likeVideo.icon = AppCompatResources.getDrawable(this, R.drawable.ic_action_liked_video_list)
+                }
+            }
+        }
+
         return true
     }
 
@@ -64,7 +81,13 @@ class VideoDetailActivity : AppCompatActivity() {
             }
             R.id.action_like_video -> {
                 Log.d("WOOHOO GOT A LIKE BABYY", "SMASH THAT LIKE BUTTON")
-                video?.let { viewModel.addLikedVideo(it) }
+                if (isLiked){
+                    video?.let { viewModel.deleteLikedVideo(it) }
+                }
+                else{
+                    video?.let { viewModel.addLikedVideo(it) }
+                }
+
                 //video?.let { videosDB.insertVideo(it) }
                 true
             }
