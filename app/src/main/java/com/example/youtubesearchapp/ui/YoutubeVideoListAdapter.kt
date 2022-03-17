@@ -1,6 +1,7 @@
 package com.example.youtubesearchapp.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.youtubesearchapp.data.YoutubeVideo
 import com.example.youtubesearchapp.R
+import com.example.youtubesearchapp.data.AppDatabase
 
 
 class YoutubeVideoListAdapter(private val onYoutubeVideoClick: (YoutubeVideo) -> Unit)
@@ -69,9 +71,17 @@ class YoutubeVideoListAdapter(private val onYoutubeVideoClick: (YoutubeVideo) ->
             }
         }
 
+        fun replaceAscii(string: String): String {
+            var string2 = string
+            while (string2.contains("&#39;")) {
+                string2 = string2.replace("&#39;", "'")
+            }
+            return string2
+        }
+
         fun bind(youtubeVideo: YoutubeVideo) {
             currentYoutubeVideo = youtubeVideo
-            nameTV.text = youtubeVideo.snippet.title
+            nameTV.text = replaceAscii(youtubeVideo.snippet.title)
             DownloadImageFromInternet(thumbnailIV).execute(youtubeVideo.snippet.thumbnails.high.url)
         }
     }
