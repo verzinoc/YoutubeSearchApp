@@ -18,9 +18,7 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.youtubesearchapp.data.LoadingStatus
-import com.example.youtubesearchapp.data.YoutubeSearchResults
-import com.example.youtubesearchapp.data.YoutubeVideo
+import com.example.youtubesearchapp.data.*
 import com.example.youtubesearchapp.ui.*
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.squareup.moshi.JsonAdapter

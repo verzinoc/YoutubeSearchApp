@@ -12,4 +12,5 @@
     <string name="action_view_video_error">There\'s no app on this device that can open a web page.  Try installing a web browser.</string>
 
     <string name="action_view_liked_videos">View liked videos</string>
+    <string name="like_the_video">Like the Video</string>
 </resources>

@@ -3,12 +3,16 @@ package com.example.youtubesearchapp.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.youtubesearchapp.R
+import com.example.youtubesearchapp.data.AppDatabase
+import com.example.youtubesearchapp.data.DatabaseRepository
 import com.example.youtubesearchapp.data.YoutubeVideo
 
 const val EXTRA_YOUTUBE_VIDEO = "com.example.android.lifecyclegithubsearch.GitHubRepo"
@@ -17,10 +21,16 @@ class VideoDetailActivity : AppCompatActivity() {
     private var video: YoutubeVideo? = null
     private val youtubeEmbedUrl = "https://www.youtube.com/embed/"
 
+    private lateinit var videosDB: DatabaseRepository
+
+    private val viewModel: DatabaseViewModel by viewModels()
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_detail)
+
+        videosDB = DatabaseRepository(AppDatabase.getInstance(this).youtubeVideoDAO())
 
         if (intent != null && intent.hasExtra(EXTRA_YOUTUBE_VIDEO)) {
             video = intent.getSerializableExtra(EXTRA_YOUTUBE_VIDEO) as YoutubeVideo
@@ -50,6 +60,12 @@ class VideoDetailActivity : AppCompatActivity() {
             }
             R.id.action_share -> {
                 shareVideo()
+                true
+            }
+            R.id.action_like_video -> {
+                Log.d("WOOHOO GOT A LIKE BABYY", "SMASH THAT LIKE BUTTON")
+                video?.let { viewModel.addLikedVideo(it) }
+                //video?.let { videosDB.insertVideo(it) }
                 true
             }
             else -> super.onOptionsItemSelected(item)

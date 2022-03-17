@@ -1,5 +1,7 @@
 package com.example.youtubesearchapp.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import java.io.Serializable
 
@@ -8,8 +10,8 @@ data class YoutubeVideo(
     val snippet: Snippet
 ) : Serializable
 
-data class ID(
-    val videoId: String
+@Entity data class ID(
+    @PrimaryKey val videoId: String
 ) : Serializable
 
 data class Snippet(
