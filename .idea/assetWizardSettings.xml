@@ -339,7 +339,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/thumb_up/outline_thumb_up_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/account_circle/baseline_account_circle_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -349,8 +349,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_outline_thumb_up" />
-                            <entry key="sourceFile" value="C:\Users\Mr1Vgy\Documents\For School\CS492_HW\YoutubeSearchApp" />
+                            <entry key="outputName" value="ic_baseline_account_circle_24" />
+                            <entry key="sourceFile" value="/C:\Users\Mr1Vgy\Documents\For School\CS492_HW\YoutubeSearchApp" />
                           </map>
                         </option>
                       </PersistentState>

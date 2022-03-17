@@ -17,27 +17,42 @@
             android:id="@+id/tv_video_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceHeadline3"
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:textAppearance="?attr/textAppearanceHeadline4"
+            android:textColor="@color/black"
+            android:background="@color/grey1"
             android:layout_marginBottom="4dp"/>
+
+
+        <WebView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:gravity="bottom"
+            android:paddingTop="40dp"
+            android:id="@+id/video_player"/>
 
         <TextView
             android:id="@+id/tv_video_channel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceHeadline4"
-            app:drawableStartCompat="@drawable/ic_baseline_star_outline_36"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/black"
+            android:background="@color/grey1"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            app:drawableStartCompat="@drawable/ic_baseline_account_circle_24"
             android:drawablePadding="8dp"/>
 
         <TextView
             android:id="@+id/tv_video_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBody1"/>
-
-        <WebView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:id="@+id/video_player"/>
+            android:paddingTop="5dp"
+            android:paddingBottom="20dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
