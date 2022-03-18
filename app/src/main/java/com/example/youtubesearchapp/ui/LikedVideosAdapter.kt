@@ -1,7 +1,6 @@
 package com.example.youtubesearchapp.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
@@ -11,44 +10,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.youtubesearchapp.data.YoutubeVideo
 import com.example.youtubesearchapp.R
-import com.example.youtubesearchapp.data.AppDatabase
+import com.example.youtubesearchapp.data.SingleYoutubeVideo
 
+class LikedVideosAdapter(private val onClick: (SingleYoutubeVideo) -> Unit)
+    : RecyclerView.Adapter<LikedVideosAdapter.ViewHolder>() {
+    var videosList = mutableListOf<SingleYoutubeVideo>()
 
-class YoutubeVideoListAdapter(private val onYoutubeVideoClick: (YoutubeVideo) -> Unit)
-    : RecyclerView.Adapter<YoutubeVideoListAdapter.YoutubeVideoViewHolder>() {
-    var youtubeVideoList = listOf<YoutubeVideo>()
-
-    fun updateVideoList(newVideoList: List<YoutubeVideo>?) {
-        youtubeVideoList = newVideoList ?: listOf()
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount() = youtubeVideoList.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YoutubeVideoViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.youtube_video_list_item, parent, false)
-        return YoutubeVideoViewHolder(itemView, onYoutubeVideoClick)
-    }
-
-    override fun onBindViewHolder(holder: YoutubeVideoViewHolder, position: Int) {
-        holder.bind(youtubeVideoList[position])
-    }
-
-    class YoutubeVideoViewHolder(itemView: View, private val onClick: (YoutubeVideo) -> Unit)
-        : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(view: View, private val onClick: (SingleYoutubeVideo) -> Unit)
+        : RecyclerView.ViewHolder(view){
+        private var currentVideo: SingleYoutubeVideo? = null
         private val nameTV: TextView = itemView.findViewById(R.id.tv_name)
         private val thumbnailIV: ImageView = itemView.findViewById(R.id.details_thumbnail)
-        private var currentYoutubeVideo: YoutubeVideo? = null
 
         init {
-            itemView.setOnClickListener {
-                currentYoutubeVideo?.let(onClick)
+            itemView.setOnClickListener{
+                currentVideo?.let(onClick)
             }
+        }
+
+        fun bind(video: SingleYoutubeVideo){
+            currentVideo = video
+            nameTV.text = replaceAscii(video.snippet.title)
+            DownloadImageFromInternet(thumbnailIV).execute(video.snippet.thumbnails.high.url)
         }
 
         @SuppressLint("StaticFieldLeak")
@@ -78,11 +63,34 @@ class YoutubeVideoListAdapter(private val onYoutubeVideoClick: (YoutubeVideo) ->
             }
             return string2
         }
+    }
 
-        fun bind(youtubeVideo: YoutubeVideo) {
-            currentYoutubeVideo = youtubeVideo
-            nameTV.text = replaceAscii(youtubeVideo.snippet.title)
-            DownloadImageFromInternet(thumbnailIV).execute(youtubeVideo.snippet.thumbnails.high.url)
-        }
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(list: MutableList<SingleYoutubeVideo>?){
+        videosList = list ?: mutableListOf()
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.youtube_video_list_item, parent, false)
+        return ViewHolder(itemView, onClick)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(videosList[position])
+    }
+
+    override fun getItemCount(): Int = videosList.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun clearVideos() {
+        videosList.clear()
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun addVideo(video: SingleYoutubeVideo){
+        videosList.add(video)
+        notifyDataSetChanged()
     }
 }

@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.youtubesearchapp.data.LoadingStatus
-import com.example.youtubesearchapp.data.YoutubeService
-import com.example.youtubesearchapp.data.YoutubeVideo
-import com.example.youtubesearchapp.data.YoutubeVideoRepository
+import com.example.youtubesearchapp.data.*
 import kotlinx.coroutines.launch
 
 class YoutubeSearchViewModel : ViewModel() {
@@ -19,6 +16,9 @@ class YoutubeSearchViewModel : ViewModel() {
 
     private val _loadingStatus = MutableLiveData(LoadingStatus.SUCCESS)
     val loadingStatus: LiveData<LoadingStatus> = _loadingStatus
+
+    private var _currentSingleVideo: MutableLiveData<SingleYoutubeVideo?> = MutableLiveData()
+    val currentSingleVideo: LiveData<SingleYoutubeVideo?> = _currentSingleVideo
 
     fun loadSearchResults(query: String) {
         viewModelScope.launch {
@@ -35,7 +35,8 @@ class YoutubeSearchViewModel : ViewModel() {
     fun fetchSingleVideoByID(id: String){
         viewModelScope.launch {
             val result = repository.fetchSingleVideoByID(id)
-            Log.d("check video", result.toString())
+            //Log.d("check video", result.toString())
+            _currentSingleVideo.value = result.getOrNull()?.get(0)
         }
     }
 }
